@@ -64,19 +64,20 @@ int main() {
     //char * words = "giraffe hive bee worker null"; //dummy sentence to test
     
     char * start = words; //start pointer
-    char * end = 0; //end pointer
+    char * end = 0;//end pointer
     int points = 0; //int to store points for each word
-    char * single_word = 0;
-
+   
     char * mostpts_start = words ; 
     char * mostpts_end = 0;
     int mostpts = 0;
+    
+    int one_input = 0;
    
     for(char * p = words; *p; ++p)
     {
         
         if(isspace(*p)){
-         
+            one_input = 1;
             end = p;
             points = char_points(start, end);
             
@@ -94,19 +95,29 @@ int main() {
             continue;
         }
    
-    }
 
+    }
+    
+    //if input is only one word (no space)
+    if(one_input ==0) 
+    {
+        mostpts_start = words;
+        mostpts_end = words + (int)strlen(words);
+        mostpts = char_points(mostpts_start,mostpts_end);
+    }
+    else{
     //for last word: 
     start = end+1;
     end = words + (int)strlen(words);
     points = char_points(start,end);
     if(points > mostpts)
             {
+                mostpts = points;
                 mostpts_start = start;
                 mostpts_end = end;
             }
             
-    
+    }
     //print word with max points
     print_word(mostpts_start, mostpts_end);
    
